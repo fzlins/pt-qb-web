@@ -39,20 +39,25 @@
         class="mx-2"
         v-if="!phoneLayout"
       />
+      <div class="icon-label">
+        <v-icon>mdi-nas</v-icon>
+        {{ info.free_space_on_disk | formatSize }}
+      </div>
+      <v-divider
+        vertical
+        class="mx-2"
+        v-if="!phoneLayout"
+      />
       <v-tooltip top>
         <template v-slot:activator="{ on }">
           <div
             class="icon-label"
             v-on="on"
           >
-            <v-icon>mdi-nas</v-icon>
-            {{ info.free_space_on_disk | formatSize }}
+            <v-icon>mdi-harddisk</v-icon>
+            {{ info.queued_io_jobs }}
           </div>
         </template>
-        <span>
-          Queued I/O jobs: {{ info.queued_io_jobs }}
-        </span>
-        <br>
         <span>
           Avg queue time: {{ info.average_time_queue }} ms
         </span>

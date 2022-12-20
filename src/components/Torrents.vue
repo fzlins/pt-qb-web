@@ -180,8 +180,11 @@
                 {{ row.item.state | stateIcon }}
               </v-icon>
               <span class="torrent-title">
-                {{ row.item.name }}
+                {{ row.item.name.length >= 80 ? row.item.name.substring(0,80)+".." : row.item.name }}
               </span>
+            </td>
+            <td :title="row.item.save_path">
+              {{ row.item.save_path.length >= 30 ? row.item.save_path.substring(0,30)+".." : row.item.save_path }}
             </td>
             <td>{{ row.item.size | formatSize }}</td>
             <td>
@@ -204,8 +207,8 @@
             <td>{{ row.item.eta | formatDuration({dayLimit: 100}) }}</td>
             <td>{{ row.item.ratio.toFixed(2) }}</td>
             <td>
-              <span :title="row.item.added_on | formatTimestamp">
-                {{ row.item.added_on | formatAsDuration }} ago
+              <span>
+                {{ row.item.added_on | formatTimestamp }}
               </span>
             </td>
           </tr>
@@ -390,6 +393,7 @@ function getStateInfo(state: string) {
 export default class Torrents extends Vue {
   readonly headers = [
     { text: tr('name'), value: 'name' },
+    { text: tr('save_path'), value: 'save_path' },
     { text: tr('size'), value: 'size' },
     { text: tr('progress'), value: 'progress' },
     { text: tr('status'), value: 'state' },
@@ -403,7 +407,7 @@ export default class Torrents extends Vue {
   ]
 
   readonly footerProps = {
-    'items-per-page-options': [10, 20, 50, -1],
+    'items-per-page-options': [10, 20, 30, 40, 50, -1],
   }
 
   selectedRows: Torrent[] = []

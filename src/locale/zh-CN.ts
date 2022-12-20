@@ -33,6 +33,7 @@ export default {
   password: '密码',
 
   name: '名称',
+  save_path: '保存位置',
   size: '大小',
   progress: '进度',
   status: '状态',
