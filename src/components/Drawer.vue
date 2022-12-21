@@ -70,7 +70,7 @@ import FilterGroup from './drawer/FilterGroup.vue';
 import api from '../Api';
 import { formatSize } from '@/filters';
 import { StateType } from '@/consts';
-import SiteMap from '@/sites'
+import { getSiteInfo } from '@/sites'
 import Component from 'vue-class-component';
 import { Prop, Emit } from 'vue-property-decorator';
 
@@ -239,9 +239,9 @@ export default class Drawer extends Vue {
   buildSiteGroup(): MenuChildrenItem[] {
     return sortBy(Object.entries(this.torrentGroupBySite).map(([key, value]) => {
       const size = formatSize(sumBy(value, 'size'));
-      const site = SiteMap[key];
-      const title = `${site ? site.name : (key || tr('others'))} (${value.length})`;
-      const icon = defaultTo(site ? site.icon : null, 'mdi-server');
+      const site = getSiteInfo(key);
+      const title = `${site.name ? site.name : (key || tr('others'))} (${value.length})`;
+      const icon = defaultTo(site.icon ? site.icon : null, 'mdi-server');
       const append = `[${size}]`;
       return {
         icon, title, key, append,

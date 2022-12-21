@@ -172,6 +172,11 @@
                 hide-details
               />
             </td>
+            <td>
+              <v-avatar size="20">
+                <img :src="trackerIcon(row.item.tracker)">
+              </v-avatar>
+            </td>
             <td
               :title="row.item.name"
               class="icon-label"
@@ -240,7 +245,7 @@
 <script lang="ts">
 import Vue from 'vue'
 import { mapState, mapGetters, mapMutations, mapActions } from 'vuex'
-import { intersection, difference, uniqBy } from 'lodash'
+import { intersection, difference, uniqBy, defaultTo } from 'lodash'
 
 import { tr } from '@/locale'
 import ConfirmDeleteDialog from './dialogs/ConfirmDeleteDialog.vue'
@@ -253,6 +258,7 @@ import { DialogType, TorrentFilter, ConfigPayload, DialogConfig, SnackBarConfig 
 import Component from 'vue-class-component'
 import { Torrent, Category, Tag } from '@/types'
 import { Watch } from 'vue-property-decorator'
+import { getSiteInfo } from '@/sites'
 
 function getStateInfo(state: string) {
   let icon;
@@ -392,6 +398,7 @@ function getStateInfo(state: string) {
 })
 export default class Torrents extends Vue {
   readonly headers = [
+    { text: tr('site'), value: 'tracker' },
     { text: tr('name'), value: 'name' },
     { text: tr('save_path'), value: 'save_path' },
     { text: tr('size'), value: 'size' },
@@ -603,6 +610,11 @@ export default class Torrents extends Vue {
     }
 
     this.selectedRows = this.selectedRows.filter(r => !toRemove.includes(r.hash));
+  }
+
+  trackerIcon(tracker: string) {
+    const site = getSiteInfo(tracker);
+    return defaultTo(site.icon ? site.icon : null, 'mdi-server');
   }
 }
 </script>
