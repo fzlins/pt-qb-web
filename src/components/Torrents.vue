@@ -612,6 +612,7 @@ export default class Torrents extends Vue {
   }
 
   trackerIcon(tracker: string) {
+    if (!tracker) return 'mdi-server';
     const hostname = new URL(tracker).hostname
     const site = getSiteName(hostname)
     return defaultTo(site != "" ? getSiteIcon(site) : null, 'mdi-server');
