@@ -13,6 +13,7 @@ import searchEngineStore from './searchEngine';
 import { RootState } from './types';
 import stateMerge from '@/utils/vue-object-merge';
 import api from '@/Api';
+import { getSiteName } from '@/sites';
 
 Vue.use(Vuex);
 
@@ -143,7 +144,7 @@ const store = new Vuex.Store<RootState>({
         }
 
         const url = new URL(torrent.tracker);
-        return url.hostname;
+        return getSiteName(url.hostname);
       });
     },
     torrentGroupByState(__, getters) {

@@ -1,170 +1,82 @@
-function getSiteIcon(name: string): string {
-  return require(`@/assets/site_icons/${name}.png`);
+enum PTSite {
+  MTeam = "M-Team",
+  FRDS = "FRDS",
+  SSD = "SSD",
+  HDChina = "HDChina",
+  CHDBits = "CHDBits",
+  HDHome = "HDHome",
+  U2 = "U2",
+  LemonHD = "LemonHD",
+  TTG = "TTG",
+  PTer = "PTer",
+  HDSky = "HDSky",
+  GPW = "GPW",
+  Audiences = "Audiences",
+  JPTV = "JPTV",
+  MDU = "MDU",
+  BLU = "BLU",
+  HUNO = "HUNO",
+  ACM = "ACM",
+  BeiTai = "BeiTai",
+  AB = "AB",
+  TL = "TL"
 }
 
-export interface SiteInfo {
-  name: string;
-  icon: string;
+export function getSiteIcon(name: string): string {
+  if (!name)
+    return name;
+
+  /* eslint-disable no-console */
+  console.log(name);
+  /* eslint-enable no-console */
+  
+  return require(`@/assets/site_icons/${name.toLocaleLowerCase()}.png`);
 }
 
-export function getSiteInfo(url: string): SiteInfo{
-  url = url.toLowerCase();
-  let siteInfo = {} as SiteInfo;
-  if (url.includes("m-team"))
-  {
-    siteInfo =
-    {
-      name: 'M-Team',
-      icon: getSiteIcon('m-team'),
-    };
-  } else if (url.includes("keepfrds"))
-  {
-    siteInfo =
-    {
-      name: 'FRDS',
-      icon: getSiteIcon('keepfrds'),
-    };
-  } else if (url.includes("springsunday"))
-  {
-    siteInfo =
-    {
-      name: 'SSD',
-      icon: getSiteIcon('springsunday'),
-    };
-  } else if (url.includes("hdchina"))
-  {
-    siteInfo =
-    {
-      name: 'HDChina',
-      icon: getSiteIcon('hdchina'),
-    };
-  } else if (url.includes("chdbits"))
-  {
-    siteInfo =
-    {
-      name: 'CHDBits',
-      icon: getSiteIcon('chdbits'),
-    };
-  } else if (url.includes("hdhome"))
-  {
-    siteInfo =
-    {
-      name: 'HDHome',
-      icon: getSiteIcon('hdhome'),
-    };
-  } else if (url.includes("dmhy"))
-  {
-    siteInfo =
-    {
-      name: 'U2',
-      icon: getSiteIcon('u2'),
-    };
-  } else if (url.includes("leaguehd"))
-  {
-    siteInfo =
-    {
-      name: 'LemonHD',
-      icon: getSiteIcon('lemonhd'),
-    };
-  } else if (url.includes("totheglory"))
-  {
-    siteInfo =
-    {
-      name: 'TTG',
-      icon: getSiteIcon('totheglory'),
-    };
-  } else if (url.includes("pterclub"))
-  {
-    siteInfo =
-    {
-      name: 'PTer',
-      icon: getSiteIcon('pterclub'),
-    };
-  } else if (url.includes("hdsky"))
-  {
-    siteInfo =
-    {
-      name: 'HDSky',
-      icon: getSiteIcon('hdsky'),
-    };
-  } else if (url.includes("greatposterwall"))
-  {
-    siteInfo =
-    {
-      name: 'GPW',
-      icon: getSiteIcon('greatposterwall'),
-    };
-  } else if (url.includes("audiences"))
-  {
-    siteInfo =
-    {
-      name: 'Audiences',
-      icon: getSiteIcon('audiences'),
-    };
-  } else if (url.includes("jptv.club"))
-  {
-    siteInfo =
-    {
-      name: 'JPTV',
-      icon: getSiteIcon('jptv'),
-    };
-  } else if (url.includes("jptv.club"))
-  {
-    siteInfo =
-    {
-      name: 'JPTV',
-      icon: getSiteIcon('jptv'),
-    };
-  } else if (url.includes("monikadesign"))
-  {
-    siteInfo =
-    {
-      name: 'MDU',
-      icon: getSiteIcon('monikadesign'),
-    };
-  } else if (url.includes("blutopia"))
-  {
-    siteInfo =
-    {
-      name: 'BLU',
-      icon: getSiteIcon('blutopia'),
-    };
-  } else if (url.includes("hawke.uno"))
-  {
-    siteInfo =
-    {
-      name: 'HUNO',
-      icon: getSiteIcon('huno'),
-    };
-  } else if (url.includes("asiancinema"))
-  {
-    siteInfo =
-    {
-      name: 'ACM',
-      icon: getSiteIcon('asiancinema'),
-    };
-  } else if (url.includes("beitai"))
-  {
-    siteInfo =
-    {
-      name: '备胎',
-      icon: getSiteIcon('beitai'),
-    };
-  } else if (url.includes("animebytes"))
-  {
-    siteInfo =
-    {
-      name: 'AB',
-      icon: getSiteIcon('animebytes'),
-    };
-  } else if (url.includes("torrentleech"))
-  {
-    siteInfo =
-    {
-      name: 'TL',
-      icon: getSiteIcon('torrentleech'),
-    };
-  }
-
-  return siteInfo;
+export function getSiteName(hostname: string): string {
+  hostname = hostname.toLocaleLowerCase();
+  if (hostname.includes("m-team"))
+    return PTSite.MTeam;
+  else if (hostname.includes("keepfrds"))
+    return PTSite.FRDS;  
+  else if (hostname.includes("springsunday"))
+    return PTSite.SSD;
+  else if (hostname.includes("hdchina"))
+    return PTSite.HDChina;
+  else if (hostname.includes("chdbits"))
+    return PTSite.CHDBits;
+  else if (hostname.includes("hdhome"))
+    return PTSite.HDHome;
+  else if (hostname.includes("dmhy"))
+    return PTSite.U2;
+  else if (hostname.includes("leaguehd"))
+    return PTSite.LemonHD;
+  else if (hostname.includes("totheglory"))
+    return PTSite.TTG;
+  else if (hostname.includes("pterclub"))
+    return PTSite.PTer;
+  else if (hostname.includes("hdsky"))
+    return PTSite.HDSky;
+  else if (hostname.includes("greatposterwall"))
+    return PTSite.GPW;
+  else if (hostname.includes("audiences"))
+    return PTSite.Audiences;
+  else if (hostname.includes("jptv.club"))
+    return PTSite.JPTV;
+  else if (hostname.includes("monikadesign"))
+    return PTSite.MDU;
+  else if (hostname.includes("blutopia"))
+    return PTSite.BLU;
+  else if (hostname.includes("hawke.uno"))
+    return PTSite.HUNO;
+  else if (hostname.includes("asiancinema"))
+    return PTSite.ACM;
+  else if (hostname.includes("beitai"))
+    return PTSite.BeiTai
+  else if (hostname.includes("animebytes"))
+    return PTSite.AB
+  else if (hostname.includes("torrentleech") || hostname.includes("tleechreload"))
+    return PTSite.TL
+    
+  return "";
 }

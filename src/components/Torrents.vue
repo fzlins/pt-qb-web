@@ -258,7 +258,7 @@ import { DialogType, TorrentFilter, ConfigPayload, DialogConfig, SnackBarConfig 
 import Component from 'vue-class-component'
 import { Torrent, Category, Tag } from '@/types'
 import { Watch } from 'vue-property-decorator'
-import { getSiteInfo } from '@/sites'
+import { getSiteIcon, getSiteName } from '@/sites'
 
 function getStateInfo(state: string) {
   let icon;
@@ -455,7 +455,6 @@ export default class Torrents extends Vue {
     if (!this.isDataReady) {
       return [];
     }
-
     let list = this.allTorrents;
     if (this.filter.site !== null) {
       list = intersection(list, this.torrentGroupBySite[this.filter.site]);
@@ -613,8 +612,9 @@ export default class Torrents extends Vue {
   }
 
   trackerIcon(tracker: string) {
-    const site = getSiteInfo(tracker);
-    return defaultTo(site.icon ? site.icon : null, 'mdi-server');
+    const hostname = new URL(tracker).hostname
+    const site = getSiteName(hostname)
+    return defaultTo(site != "" ? getSiteIcon(site) : null, 'mdi-server');
   }
 }
 </script>
