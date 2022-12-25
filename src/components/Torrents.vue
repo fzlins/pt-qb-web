@@ -398,7 +398,11 @@ function getStateInfo(state: string) {
 })
 export default class Torrents extends Vue {
   readonly headers = [
-    { text: tr('site'), value: 'tracker' },
+    { 
+      text: tr('site'),
+      value: 'tracker',
+      sortable: false,
+    },
     { text: tr('name'), value: 'name' },
     { text: tr('save_path'), value: 'save_path' },
     { text: tr('size'), value: 'size' },
