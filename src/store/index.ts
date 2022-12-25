@@ -94,7 +94,14 @@ const store = new Vuex.Store<RootState>({
         return [];
       }
 
-      return map(state.mainData.torrents, (value, key) => merge({}, value, { hash: key }));
+      const torrents = map(state.mainData.torrents, (value, key) => merge({}, 
+        value, { 
+          hash: key,
+          site: value.tracker ? getSiteName(value.tracker) : '',
+          imdb: value.tags.split(',').find(x => x.match('tt\\d{7,8}')),
+        }))
+
+      return torrents;
     },
     allCategories(state) {
       if (!state.mainData) {
@@ -139,12 +146,7 @@ const store = new Vuex.Store<RootState>({
     },
     torrentGroupBySite(state, getters) {
       return groupBy(getters.allTorrents, (torrent) => {
-        if (!torrent.tracker) {
-          return '';
-        }
-
-        const url = new URL(torrent.tracker);
-        return getSiteName(url.hostname);
+        return torrent.site;
       });
     },
     torrentGroupByState(__, getters) {

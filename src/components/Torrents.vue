@@ -174,7 +174,7 @@
             </td>
             <td>
               <v-avatar size="20">
-                <img :src="trackerIcon(row.item.tracker)">
+                <img :src="trackerIcon(row.item.site)">
               </v-avatar>
             </td>
             <td
@@ -188,6 +188,7 @@
                 {{ row.item.name.length >= 80 ? row.item.name.substring(0,80)+".." : row.item.name }}
               </span>
             </td>
+            <td :inner-html.prop="row.item.imdb | formatIMDb" />
             <td :title="row.item.save_path">
               {{ row.item.save_path.length >= 30 ? row.item.save_path.substring(0,30)+".." : row.item.save_path }}
             </td>
@@ -385,6 +386,13 @@ function getStateInfo(state: string) {
 
       return item.color || '#0008';
     },
+    formatIMDb(imdbId: string) {
+      if (imdbId && imdbId != '')
+      {
+        return `<a href="https://www.imdb.com/title/${imdbId}/">${imdbId}</a>`;
+      }  
+      return null;
+    },
   },
   methods: {
     ...mapMutations([
@@ -399,11 +407,10 @@ function getStateInfo(state: string) {
 export default class Torrents extends Vue {
   readonly headers = [
     { 
-      text: tr('site'),
-      value: 'tracker',
-      sortable: false,
+      text: tr('site'), value: 'site', sortable: false,
     },
     { text: tr('name'), value: 'name' },
+    { text: 'IMDb', value: 'imdb' },
     { text: tr('save_path'), value: 'save_path' },
     { text: tr('size'), value: 'size' },
     { text: tr('progress'), value: 'progress' },
@@ -478,7 +485,8 @@ export default class Torrents extends Vue {
       list = list.filter(t => {
         return t.name.toLowerCase().includes(q) ||
           t.tracker.toLowerCase().includes(q) ||
-          t.category.toLowerCase().includes(q);
+          t.category.toLowerCase().includes(q) ||
+          t.tags.toLowerCase().includes(q);
       });
     }
 
@@ -615,10 +623,7 @@ export default class Torrents extends Vue {
     this.selectedRows = this.selectedRows.filter(r => !toRemove.includes(r.hash));
   }
 
-  trackerIcon(tracker: string) {
-    if (!tracker) return 'mdi-server';
-    const hostname = new URL(tracker).hostname
-    const site = getSiteName(hostname)
+  trackerIcon(site: string) {
     return defaultTo(site != "" ? getSiteIcon(site) : null, 'mdi-server');
   }
 }

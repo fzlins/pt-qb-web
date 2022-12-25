@@ -49,6 +49,8 @@ const emptyBaseTorrent: BaseTorrent = {
 
 const emptyTorrent: Torrent = Object.assign({}, emptyBaseTorrent, {
   hash: '',
+  site: '',
+  imdb: '',
 });
 
 export function mock<T>(empty: T) {
