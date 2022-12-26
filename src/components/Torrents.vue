@@ -267,7 +267,7 @@ import { DialogType, TorrentFilter, ConfigPayload, DialogConfig, SnackBarConfig 
 import Component from 'vue-class-component'
 import { Torrent, Category, Tag } from '@/types'
 import { Watch } from 'vue-property-decorator'
-import { getSiteIcon, getSiteName } from '@/sites'
+import { getSiteIcon } from '@/sites'
 
 function getStateInfo(state: string) {
   let icon;
