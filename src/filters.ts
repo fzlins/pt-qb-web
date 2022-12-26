@@ -34,7 +34,7 @@ export function formatSize(value: number): string {
     return `${value} ${unit}`;
   }
 
-  return `${toPrecision(value, 3)} ${unit}`;
+  return `${value.toFixed(2)} ${unit}`;
 }
 
 Vue.filter('formatSize', formatSize);

@@ -192,7 +192,9 @@
             <td :title="row.item.save_path">
               {{ row.item.save_path.length >= 30 ? row.item.save_path.substring(0,30)+".." : row.item.save_path }}
             </td>
-            <td>{{ row.item.size | formatSize }}</td>
+            <td class="number">
+              {{ row.item.size | formatSize }}
+            </td>
             <td>
               <v-progress-linear
                 height="1.4em"
@@ -208,10 +210,16 @@
             <td>{{ $t('torrent_state.' + row.item.state) }}</td>
             <td>{{ row.item.num_seeds }}/{{ row.item.num_complete }}</td>
             <td>{{ row.item.num_leechs }}/{{ row.item.num_incomplete }}</td>
-            <td>{{ row.item.dlspeed | formatNetworkSpeed }}</td>
-            <td>{{ row.item.upspeed | formatNetworkSpeed }}</td>
+            <td class="number">
+              {{ row.item.dlspeed | formatNetworkSpeed }}
+            </td>
+            <td class="number">
+              {{ row.item.upspeed | formatNetworkSpeed }}
+            </td>
             <td>{{ row.item.eta | formatDuration({dayLimit: 100}) }}</td>
-            <td>{{ row.item.ratio.toFixed(2) }}</td>
+            <td class="number">
+              {{ row.item.ratio.toFixed(2) }}
+            </td>
             <td>
               <span>
                 {{ row.item.added_on | formatTimestamp }}
@@ -412,15 +420,15 @@ export default class Torrents extends Vue {
     { text: tr('name'), value: 'name' },
     { text: 'IMDb', value: 'imdb' },
     { text: tr('save_path'), value: 'save_path' },
-    { text: tr('size'), value: 'size' },
+    { text: tr('size'), value: 'size', align: 'right' },
     { text: tr('progress'), value: 'progress' },
     { text: tr('status'), value: 'state' },
     { text: tr('seeds'), value: 'num_complete' },
     { text: tr('peers'), value: 'num_incomplete' },
-    { text: tr('dl_speed'), value: 'dlspeed' },
-    { text: tr('up_speed'), value: 'upspeed' },
+    { text: tr('dl_speed'), value: 'dlspeed', align: 'right' },
+    { text: tr('up_speed'), value: 'upspeed', align: 'right' },
     { text: tr('eta'), value: 'eta' },
-    { text: tr('ratio'), value: 'ratio' },
+    { text: tr('ratio'), value: 'ratio', align: 'right' },
     { text: tr('added_on'), value: 'added_on' },
   ]
 
@@ -481,9 +489,10 @@ export default class Torrents extends Vue {
     }
     if (this.query) {
       const q = this.query.toLowerCase();
+      const sq = q.replace(/[\s.]/g, '');
 
       list = list.filter(t => {
-        return t.name.toLowerCase().includes(q) ||
+        return t.name.replace(/[\s.]/g, '').toLowerCase().includes(sq) ||
           t.tracker.toLowerCase().includes(q) ||
           t.category.toLowerCase().includes(q) ||
           t.tags.toLowerCase().includes(q);
@@ -733,5 +742,8 @@ export default class Torrents extends Vue {
 .icon-label {
   display: flex;
   align-items: center;
+}
+.number {
+  text-align: right;
 }
 </style>
