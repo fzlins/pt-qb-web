@@ -165,7 +165,7 @@
         >
           mdi-download
         </v-icon>
-        <span>
+        <span class="speed">
           {{ info.dl_info_speed | formatSize }}/s
           <template v-if="info.dl_rate_limit">
             ({{ info.dl_rate_limit | formatSize }}/s)
@@ -186,7 +186,7 @@
         >
           mdi-upload
         </v-icon>
-        <span>
+        <span class="speed">
           {{ info.up_info_speed | formatSize }}/s
           <template v-if="info.up_rate_limit">
             ({{ info.up_rate_limit | formatSize }}/s)
@@ -377,5 +377,9 @@ export default class Footer extends Vue {
   .no-icon {
     margin-left: 24px;
   }
+}
+span.speed {
+  min-width: 260px!important;
+  text-align: right;
 }
 </style>

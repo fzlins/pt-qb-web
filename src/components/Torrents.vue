@@ -210,10 +210,10 @@
             <td>{{ $t('torrent_state.' + row.item.state) }}</td>
             <td>{{ row.item.num_seeds }}/{{ row.item.num_complete }}</td>
             <td>{{ row.item.num_leechs }}/{{ row.item.num_incomplete }}</td>
-            <td class="number">
+            <td class="speed">
               {{ row.item.dlspeed | formatNetworkSpeed }}
             </td>
-            <td class="number">
+            <td class="speed">
               {{ row.item.upspeed | formatNetworkSpeed }}
             </td>
             <td>{{ row.item.eta | formatDuration({dayLimit: 100}) }}</td>
@@ -744,6 +744,10 @@ export default class Torrents extends Vue {
   align-items: center;
 }
 .number {
+  text-align: right;
+}
+.speed {
+  min-width: 60px!important;
   text-align: right;
 }
 </style>
