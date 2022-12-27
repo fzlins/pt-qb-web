@@ -26,6 +26,12 @@
         <span class="progress">
           {{ row.item.progress | progress }}
         </span>
+        <v-btn
+          v-if="row.item.item"
+          @click="getMediainfo(row.item.id)"
+        >
+          <v-icon>content_copy</v-icon>
+        </v-btn>
       </template>
     </v-treeview>
   </div>
@@ -37,6 +43,7 @@ import api from '../../Api';
 import BaseTorrentInfo from './baseTorrentInfo'
 import Component from 'vue-class-component';
 import { Prop } from 'vue-property-decorator';
+import { Torrent } from '@/types'
 
 enum EFilePriority {
   notDownload = 0,
@@ -77,8 +84,8 @@ const UNWANTED_FILE = '.unwanted';
 
 @Component
 export default class TorrentContent extends BaseTorrentInfo {
-  @Prop(String)
-  readonly hash!: string
+  @Prop()
+  readonly torrent!: Torrent
 
   files: File[] = []
   folderIndex!: number
@@ -95,7 +102,7 @@ export default class TorrentContent extends BaseTorrentInfo {
   }
 
   async getFiles() {
-    const files = await api.getTorrentFiles(this.hash) as File[]
+    const files = await api.getTorrentFiles(this.torrent.hash) as File[]
     files.forEach((v, i) => v.id = i)
     files.sort((a, b) => a.name.localeCompare(b.name))
 
@@ -121,7 +128,7 @@ export default class TorrentContent extends BaseTorrentInfo {
 
     this.inChanging.push(...diff);
 
-    await api.setTorrentFilePriority(this.hash, diff, items.length > previous.length ?
+    await api.setTorrentFilePriority(this.torrent.hash, diff, items.length > previous.length ?
       EFilePriority.normal : EFilePriority.notDownload);
   }
 
@@ -187,6 +194,16 @@ export default class TorrentContent extends BaseTorrentInfo {
 
   fetchInfo() {
     return this.getFiles()
+  }
+
+  async getMediainfo(id: number) {
+    const filepath = this.torrent.save_path + this.files[id].name;
+    try {
+      await navigator.clipboard.writeText(filepath);
+      alert('Copied');
+    } catch($e) {
+      alert('Cannot copy');
+    }
   }
 }
 </script>

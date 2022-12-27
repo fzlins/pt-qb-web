@@ -78,7 +78,7 @@
               :single="torrents.length === 1"
             >
               <torrent-content
-                :hash="torrent.hash"
+                :torrent="torrent"
                 :is-active="tab === 'content'"
               />
             </panel>
