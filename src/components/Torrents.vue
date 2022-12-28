@@ -188,6 +188,9 @@
                 {{ row.item.name.length >= 80 ? row.item.name.substring(0,80)+".." : row.item.name }}
               </span>
             </td>
+            <td>
+              {{ row.item.groupName }}
+            </td>
             <td :inner-html.prop="row.item.imdb | formatIMDb" />
             <td :title="row.item.save_path">
               {{ row.item.save_path.length >= 30 ? row.item.save_path.substring(0,30)+".." : row.item.save_path }}
@@ -414,10 +417,9 @@ function getStateInfo(state: string) {
 })
 export default class Torrents extends Vue {
   readonly headers = [
-    { 
-      text: tr('site'), value: 'site', sortable: false,
-    },
+    { text: tr('site'), value: 'site', sortable: false },
     { text: tr('name'), value: 'name' },
+    { text: 'Group', value: 'groupName' },
     { text: 'IMDb', value: 'imdb' },
     { text: tr('save_path'), value: 'save_path' },
     { text: tr('size'), value: 'size', align: 'right' },

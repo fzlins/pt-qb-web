@@ -33,6 +33,15 @@ export function getSiteIcon(name: string): string {
   return require(`@/assets/site_icons/${name.toLocaleLowerCase()}.png`);
 }
 
+export function getGroupName(name: string): string {
+  if (!name)
+    return "";
+    
+  name = name.replace(')','');
+  const groupName = name.match('(?<=[@-]|[@-]\\s)(\\w*)(?=($|[.]\\w{2,3}$))');
+  return groupName ? groupName[1] : "";
+}
+
 export function getSiteName(url: string): string {
   try{
     if (url)

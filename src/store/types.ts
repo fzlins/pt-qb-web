@@ -28,6 +28,7 @@ export interface TorrentFilter {
   category: string;
   tag: string;
   site: string;
+  groupName: string;
   query: string;
 }
 
