@@ -79,7 +79,7 @@
 import {chunk, countBy} from 'lodash'
 
 import api from '../../Api'
-import {formatDuration, formatSize, formatTimestamp, toPrecision} from '@/filters'
+import {formatDuration, formatSize, formatSpeed, formatTimestamp, toPrecision} from '@/filters'
 
 import {Torrent, TorrentProperties} from '@/types'
 import Component from 'vue-class-component'
@@ -116,8 +116,8 @@ export default class TorrentInfo extends BaseTorrentInfo {
     { label: 'Downloaded', value: prop => `${formatSize(prop.total_downloaded_session)}/${formatSize(prop.total_downloaded)}` },
     { label: 'Uploaded', value: prop => `${formatSize(prop.total_uploaded_session)}/${formatSize(prop.total_uploaded)}` },
     { label: 'Seeds', value: prop => `${prop.seeds} (${prop.seeds_total} total)` },
-    { label: 'DL speed', value: prop => `${formatSize(prop.dl_speed)}/s` },
-    { label: 'UP speed', value: prop => `${formatSize(prop.up_speed)}/s` },
+    { label: 'DL speed', value: prop => formatSpeed(prop.dl_speed) },
+    { label: 'UP speed', value: prop => formatSpeed(prop.up_speed) },
     { label: 'Peers', value: prop => `${prop.peers} (${prop.peers_total} total)` },
     { label: 'Wasted', value: prop => formatSize(prop.total_wasted) },
     { label: 'Share ratio', value: prop => toPrecision(prop.share_ratio, 3) },

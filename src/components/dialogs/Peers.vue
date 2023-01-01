@@ -46,7 +46,7 @@
 import { map, merge, cloneDeep } from 'lodash';
 import { codeToFlag, isWindows } from '../../utils';
 import api from '../../Api';
-import { formatSize } from '../../filters';
+import { formatSize, formatSpeed } from '../../filters';
 import BaseTorrentInfo from './baseTorrentInfo';
 import Component from 'vue-class-component';
 import { Prop } from 'vue-property-decorator';
@@ -58,7 +58,7 @@ import { Prop } from 'vue-property-decorator';
         return null;
       }
 
-      return `${formatSize(speed)}/s`;
+      return formatSpeed(speed);
     },
     networkSize(size: number) {
       if (size === 0) {

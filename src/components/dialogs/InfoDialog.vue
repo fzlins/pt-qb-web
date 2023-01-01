@@ -52,7 +52,7 @@
               :single="torrents.length === 1"
             >
               <trackers
-                :hash="torrent.hash"
+                :hash="torrent"
                 :is-active="tab === 'trackers'"
               />
             </panel>

@@ -82,7 +82,7 @@ import { Watch } from 'vue-property-decorator';
 import { MainData } from './types';
 import { Config } from './store/config';
 import Api from './Api';
-import {formatSize} from '@/filters'
+import {formatSpeed} from '@/filters'
 
 let appWrapEl: HTMLElement;
 
@@ -211,10 +211,10 @@ export default class App extends Vue {
       const dlInfoSpeed = mainData.server_state.dl_info_speed
       let dl = '', up = ''
       if (dlInfoSpeed > 1024) {
-        dl = `D ${formatSize(dlInfoSpeed)}/s`
+        dl = `D ${formatSpeed(dlInfoSpeed)}`
       }
       if (upInfoSpeed > 1024) {
-        up = `U ${formatSize(upInfoSpeed)}/s`
+        up = `U ${formatSpeed(upInfoSpeed)}`
       }
       document.title = `[${up} ${dl}] qBittorrent Web UI`
     }

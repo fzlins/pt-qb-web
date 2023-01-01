@@ -18,7 +18,7 @@ export function toPrecision(value: number, precision: number) {
   return value.toFixed(precision - 1);
 }
 
-export function formatSize(value: number): string {
+export function formatSize(value: number, type = 'volume'): string {
   const units = 'KMGTP';
   let index = value ? Math.floor(Math.log2(value) / 10) : 0;
 
@@ -33,12 +33,24 @@ export function formatSize(value: number): string {
   if (index === 0) {
     return `${value} ${unit}`;
   }
+  switch (type)
+  {
+    case 'speed':
+      return `${value.toPrecision(3)} ${unit}`;
+      break;
+    default:
+      return `${value.toFixed(2)} ${unit}`;
+  }
+}
 
-  return `${value.toFixed(2)} ${unit}`;
+export function formatSpeed(value: number): string {
+  return `${formatSize(value, 'speed')}/s`;
 }
 
 Vue.filter('formatSize', formatSize);
 Vue.filter('size', formatSize);
+Vue.filter('formatSpeed', formatSpeed);
+Vue.filter('speed', formatSpeed);
 
 export interface DurationOptions {
   dayLimit?: number;

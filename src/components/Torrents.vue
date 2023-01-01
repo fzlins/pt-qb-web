@@ -193,7 +193,7 @@
             </td>
             <td :inner-html.prop="row.item.imdb | formatIMDb" />
             <td :title="row.item.save_path">
-              {{ row.item.save_path.length >= 30 ? row.item.save_path.substring(0,30)+".." : row.item.save_path }}
+              {{ row.item.category }}
             </td>
             <td class="number">
               {{ row.item.size | formatSize }}
@@ -265,7 +265,7 @@ import ConfirmSetCategoryDialog from './dialogs/ConfirmSetCategoryDialog.vue'
 import EditTrackerDialog from './dialogs/EditTrackerDialog.vue'
 import InfoDialog from './dialogs/InfoDialog.vue'
 import api from '../Api'
-import { formatSize } from '@/filters'
+import { formatSpeed } from '@/filters'
 import { DialogType, TorrentFilter, ConfigPayload, DialogConfig, SnackBarConfig } from '@/store/types'
 import Component from 'vue-class-component'
 import { Torrent, Category, Tag } from '@/types'
@@ -380,7 +380,7 @@ function getStateInfo(state: string) {
         return null;
       }
 
-      return `${formatSize(speed)}/s`;
+      return formatSpeed(speed);
     },
     stateIcon(state: string) {
       const item = getStateInfo(state);
@@ -421,7 +421,7 @@ export default class Torrents extends Vue {
     { text: tr('name'), value: 'name' },
     { text: 'Group', value: 'groupName' },
     { text: 'IMDb', value: 'imdb' },
-    { text: tr('save_path'), value: 'save_path' },
+    { text: tr('category'), value: 'category' },
     { text: tr('size'), value: 'size', align: 'right' },
     { text: tr('progress'), value: 'progress' },
     { text: tr('status'), value: 'state' },
