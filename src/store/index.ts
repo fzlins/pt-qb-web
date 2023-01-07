@@ -103,10 +103,12 @@ const store = new Vuex.Store<RootState>({
           imdb: value.tags.split(',').find(x => x.match('tt\\d{7,8}')),
         }))
       
+      /* eslint-disable @typescript-eslint/camelcase */
       torrents.forEach(function(value){
         if (value.completion_on <= 0)
           value.completion_on = 8640000000000000;
       });
+      /* eslint-enable @typescript-eslint/camelcase */
       
       return torrents;
     },

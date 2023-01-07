@@ -24,8 +24,6 @@ module.exports = {
     'vue/singleline-html-element-content-newline': ['warn', {
       ignores: ['pre', 'textarea', 'span', 'v-icon'],
     }],
-
-    "camelcase": ["error", {"allow": ["completion_on"]}],
   },
   parserOptions: {
     parser: '@typescript-eslint/parser',
