@@ -1,4 +1,4 @@
-import { merge, map, groupBy, sortBy, result } from 'lodash';
+import { merge, map, groupBy, sortBy} from 'lodash';
 import Vue from 'vue';
 import Vuex from 'vuex';
 import { computed, Ref } from '@vue/composition-api';
