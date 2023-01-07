@@ -44,6 +44,7 @@ export default {
   eta: 'ETA',
   ratio: 'Ratio',
   added_on: 'Added On',
+  completion_on: 'Completion On',
 
   settings: 'Settings',
   logs: 'Logs',

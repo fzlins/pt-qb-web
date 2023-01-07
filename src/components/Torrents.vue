@@ -225,7 +225,7 @@
             </td>
             <td>
               <span>
-                {{ row.item.added_on | formatTimestamp }}
+                {{ row.item.completion_on | formatTimestamp }}
               </span>
             </td>
           </tr>
@@ -431,7 +431,7 @@ export default class Torrents extends Vue {
     { text: tr('up_speed'), value: 'upspeed', align: 'right' },
     { text: tr('eta'), value: 'eta' },
     { text: tr('ratio'), value: 'ratio', align: 'right' },
-    { text: tr('added_on'), value: 'added_on' },
+    { text: tr('completion_on'), value: 'completion_on' },
   ]
 
   readonly footerProps = {

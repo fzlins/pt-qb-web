@@ -29,8 +29,12 @@ export function getSiteIcon(name: string): string {
   /* eslint-disable no-console */
   // console.log(name);
   /* eslint-enable no-console */
-  
-  return require(`@/assets/site_icons/${name.toLocaleLowerCase()}.png`);
+  try
+  {
+    return require(`@/assets/site_icons/${name.toLocaleLowerCase()}.png`);
+  } catch {
+    return "";
+  }
 }
 
 export function getGroupName(name: string): string {
@@ -89,6 +93,8 @@ export function getSiteName(url: string): string {
         return PTSite.AB
       else if (hostname.includes("torrentleech") || hostname.includes("tleechreload"))
         return PTSite.TL
+      else
+      return hostname;
     }
   } catch {
     return "";

@@ -116,7 +116,7 @@ export function formatDuration(value: number, options?: DurationOptions) {
 Vue.filter('formatDuration', formatDuration);
 
 export function formatTimestamp(timestamp: number | null) {
-  if (timestamp == null || timestamp === -1) {
+  if (timestamp == null || timestamp === -1 || timestamp == 8640000000000000) {
     return '';
   }
 

@@ -1,4 +1,4 @@
-import { merge, map, groupBy, sortBy } from 'lodash';
+import { merge, map, groupBy, sortBy, result } from 'lodash';
 import Vue from 'vue';
 import Vuex from 'vuex';
 import { computed, Ref } from '@vue/composition-api';
@@ -95,13 +95,19 @@ const store = new Vuex.Store<RootState>({
       }
 
       const torrents = map(state.mainData.torrents, (value, key) => merge({}, 
-        value, { 
+        value,
+        { 
           hash: key,
           site: value.tracker ? getSiteName(value.tracker) : '',
           groupName: value.name ? getGroupName(value.name) : '',
           imdb: value.tags.split(',').find(x => x.match('tt\\d{7,8}')),
         }))
-
+      
+      torrents.forEach(function(value){
+        if (value.completion_on <= 0)
+          value.completion_on = 8640000000000000;
+      });
+      
       return torrents;
     },
     allCategories(state) {
@@ -148,6 +154,18 @@ const store = new Vuex.Store<RootState>({
     torrentGroupBySite(state, getters) {
       return groupBy(getters.allTorrents, (torrent) => {
         return torrent.site;
+      });
+    },
+    torrentGroupByGroup(state, getters) {
+      const groupByName = getters.allTorrents.reduce((result: any, currentObject: any) => {
+        if (!result[currentObject.name] || result[currentObject.name].length < currentObject.length)
+          result[currentObject.name] = Object.assign({}, currentObject)
+
+        return result;
+      }, {});
+
+      return groupBy(groupByName, (torrent) => {
+        return torrent.groupName;
       });
     },
     torrentGroupByState(__, getters) {
