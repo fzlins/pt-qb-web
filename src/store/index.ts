@@ -106,7 +106,7 @@ const store = new Vuex.Store<RootState>({
       /* eslint-disable @typescript-eslint/camelcase */
       torrents.forEach(function(value){
         if (value.completion_on <= 0)
-          value.completion_on = 8640000000000000;
+          value.completion_on = value.added_on + 5000000000000000;
       });
       /* eslint-enable @typescript-eslint/camelcase */
       
