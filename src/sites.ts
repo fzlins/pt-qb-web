@@ -19,7 +19,8 @@ enum PTSite {
   ACM = "ACM",
   BeiTai = "BeiTai",
   AB = "AB",
-  TL = "TL"
+  TL = "TL",
+  OurBits = "OurBits"
 }
 
 export function getSiteIcon(name: string): string {
@@ -88,12 +89,13 @@ export function getSiteName(url: string): string {
       else if (hostname.includes("asiancinema"))
         return PTSite.ACM;
       else if (hostname.includes("beitai"))
-        return PTSite.BeiTai
+        return PTSite.BeiTai;
       else if (hostname.includes("animebytes"))
-        return PTSite.AB
+        return PTSite.AB;
       else if (hostname.includes("torrentleech") || hostname.includes("tleechreload"))
-        return PTSite.TL
-      else
+        return PTSite.TL;
+      else if (hostname.includes("ourbits"))
+        return PTSite.OurBits;
       return hostname;
     }
   } catch {
