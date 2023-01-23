@@ -20,7 +20,8 @@ enum PTSite {
   BeiTai = "BeiTai",
   AB = "AB",
   TL = "TL",
-  OurBits = "OurBits"
+  OurBits = "OurBits",
+  BeyondHD = "BeyondHD"
 }
 
 export function getSiteIcon(name: string): string {
@@ -47,7 +48,7 @@ export function getGroupName(name: string): string {
   return groupName ? groupName[1] : "";
 }
 
-export function getSiteName(url: string): string {
+export function getSiteNameByUrl(url: string): string {
   try{
     if (url)
     {
@@ -103,4 +104,59 @@ export function getSiteName(url: string): string {
   }
   
   return "";
+}
+
+export function getSiteNameByGroupName(groupName: string): string {
+  groupName = groupName ? groupName.toLowerCase() : "";
+  if (groupName.includes("m-team"))
+    return PTSite.MTeam;
+  else if (groupName == "frds")
+    return PTSite.FRDS;  
+  else if (groupName.includes("cmct"))
+    return PTSite.SSD;
+  else if (groupName == "hdchina" || groupName == "hdctv" || groupName == "hdc" || groupName == "ihd")
+    return PTSite.HDChina;
+  else if (groupName == "chdbits" || groupName == "chdtv" || groupName == "chdpad" || groupName == "chdhktv"
+    || groupName == "stbox" || groupName == "onehd" || groupName == "chdweb" || groupName == "chd")
+    return PTSite.CHDBits;
+  else if (groupName == "hdhome" || groupName == "hdh" || groupName == "hdhtv" || groupName == "hdhpad"
+    || groupName == "hdhweb")
+    return PTSite.HDHome;
+  else if (groupName == "u2")
+    return PTSite.U2;
+  else if (groupName == "lhd" || groupName == "i18n" || groupName == "leaguehd" || groupName == "leaguenf" 
+    || groupName == "leaguetv" || groupName == "leaguecd" || groupName == "leagueweb" || groupName == "cint"
+    || groupName == "leaguesport")
+    return PTSite.LemonHD;
+  else if (groupName == "ttg" || groupName == "wiki" || groupName == "ngb" || groupName == "doa" || groupName == "arin"
+    || groupName == "exren")
+    return PTSite.TTG;
+  else if (groupName == "pter" || groupName == "pterweb" || groupName == "ptermv" || groupName == "ptergame")
+    return PTSite.PTer;
+  else if (groupName == "hdsky" || groupName == "hds" || groupName == "hds3d" || groupName == "hdsweb"
+    || groupName == "hdspad" || groupName == "hdscd" || groupName == "hdspecial")
+    return PTSite.HDSky;
+  else if (groupName == "audies" || groupName == "ade" || groupName == "adweb" || groupName == "adaudio"
+    || groupName == "adebook" || groupName == "admusic")
+    return PTSite.Audiences;
+  else if (groupName.endsWith("jptvclub"))
+    return PTSite.JPTV;
+  else if (groupName == "bluranium" || groupName == "blutonium" || groupName == "consortium" || groupName == "cultfilms"
+    || groupName == "damn" || groupName == "isa" || groupName == "jkp" || groupName == "pmp" || groupName == "wildcat")
+    return PTSite.BLU;
+  else if (groupName == "hone")
+    return PTSite.HUNO;
+  else if (groupName == "izon3" || groupName == "arin" || groupName == "kawairemux" || groupName == "ulysses")
+    return PTSite.ACM;
+  else if (groupName == "beitai")
+    return PTSite.BeiTai;
+  else if (groupName == "ourbits" || groupName == "pbk" || groupName == "ourtv" || groupName == "ilovetv"
+    || groupName == "fltth" || groupName == "ao" || groupName == "mgs" || groupName == "ourpad" || groupName == "host"
+    || groupName == "ilovehd")
+    return PTSite.OurBits;
+  else if (groupName == "framestor" || groupName == "bhdstudio" || groupName == "beyondhd" || groupName == "beyondhd"
+    || groupName =='z0n3')
+    return PTSite.BeyondHD;
+  else
+    return groupName;
 }

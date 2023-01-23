@@ -13,7 +13,7 @@ import searchEngineStore from './searchEngine';
 import { RootState } from './types';
 import stateMerge from '@/utils/vue-object-merge';
 import api from '@/Api';
-import { getGroupName, getSiteName } from '@/sites';
+import { getGroupName, getSiteNameByUrl, getSiteNameByGroupName } from '@/sites';
 
 Vue.use(Vuex);
 
@@ -98,7 +98,7 @@ const store = new Vuex.Store<RootState>({
         value,
         { 
           hash: key,
-          site: value.tracker ? getSiteName(value.tracker) : '',
+          site: value.tracker ? getSiteNameByUrl(value.tracker) : '',
           groupName: value.name ? getGroupName(value.name) : '',
           imdb: value.tags.split(',').find(x => x.match('tt\\d{7,8}')),
         }))
@@ -158,7 +158,7 @@ const store = new Vuex.Store<RootState>({
         return torrent.site;
       });
     },
-    torrentGroupByGroup(state, getters) {
+    torrentGroupByGroupName(state, getters) {
       const groupByName = getters.allTorrents.reduce((result: any, currentObject: any) => {
         if (!result[currentObject.name] || result[currentObject.name].length < currentObject.length)
           result[currentObject.name] = Object.assign({}, currentObject)
@@ -167,7 +167,7 @@ const store = new Vuex.Store<RootState>({
       }, {});
 
       return groupBy(groupByName, (torrent) => {
-        return torrent.groupName;
+        return getSiteNameByGroupName(torrent.groupName);
       });
     },
     torrentGroupByState(__, getters) {

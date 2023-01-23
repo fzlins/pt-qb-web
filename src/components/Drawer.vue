@@ -146,6 +146,7 @@ interface MenuChildrenItem extends MenuItem {
       'torrentGroupByTag',
       'torrentGroupBySite',
       'torrentGroupByState',
+      'torrentGroupByGroupName',
     ]),
   },
 })
@@ -171,6 +172,7 @@ export default class Drawer extends Vue {
   torrentGroupByCategory!: {[category: string]: Torrent[]}
   torrentGroupByTag!: {[tag: string]: Torrent[]}
   torrentGroupBySite!: {[site: string]: Torrent[]}
+  torrentGroupByGroupName!: {[groupName: string]: Torrent[]}
   torrentGroupByState!: {[state: string]: Torrent[]}
 
   created() {
@@ -248,6 +250,18 @@ export default class Drawer extends Vue {
     }), 'title');
   }
 
+  buildGroupNameGroup(): MenuChildrenItem[] {
+    return sortBy(Object.entries(this.torrentGroupByGroupName).map(([key, value]) => {
+      const size = formatSize(sumBy(value, 'size'));
+      const title = `${key || tr('others')} (${value.length})`;
+      const icon = defaultTo(key != "" ? getSiteIcon(key) : null, 'mdi-server');
+      const append = `[${size}]`;
+      return {
+        icon, title, key, append,
+      };
+    }), 'title');
+  }
+
   get items() {
     if (!this.isDataReady) {
       return this.endItems
@@ -309,6 +323,25 @@ export default class Drawer extends Vue {
           icon: 'mdi-server', title: `${tr('all')} (${this.allTorrents.length})`, key: null, append: `[${totalSize}]`,
         },
         ...this.buildSiteGroup(),
+      ],
+    });
+    let groupNameLength = 0;
+    let groupTotalSize = 0;
+    for (const groupName in this.torrentGroupByGroupName) {
+      groupNameLength += this.torrentGroupByGroupName[groupName].length;
+      groupTotalSize += sumBy(this.torrentGroupByGroupName[groupName], 'size');
+    }
+    filterGroups.push({
+      icon: 'mdi-menu-up',
+      'icon-alt': 'mdi-menu-down',
+      title: tr('groupName'),
+      model: null,
+      select: 'groupName',
+      children: [
+        {
+          icon: 'mdi-server', title: `${tr('all')} (${groupNameLength})`, key: null, append: `[${formatSize(groupTotalSize)}]`,
+        },
+        ...this.buildGroupNameGroup(),
       ],
     });
 

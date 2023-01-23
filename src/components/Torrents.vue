@@ -364,6 +364,7 @@ function getStateInfo(state: string) {
       'torrentGroupByTag',
       'torrentGroupBySite',
       'torrentGroupByState',
+      'torrentGroupByGroupName',
     ]),
     ...mapState({
       filter(state, getters) {
@@ -454,6 +455,7 @@ export default class Torrents extends Vue {
   torrentGroupByCategory!: {[category: string]: Torrent[]}
   torrentGroupByTag!: {[tag: string]: Torrent[]}
   torrentGroupBySite!: {[site: string]: Torrent[]}
+  torrentGroupByGroupName!: {[groupName: string]: Torrent[]}
   torrentGroupByState!: {[state: string]: Torrent[]}
   filter!: TorrentFilter
   query!: string | null
@@ -479,6 +481,9 @@ export default class Torrents extends Vue {
     let list = this.allTorrents;
     if (this.filter.site !== null) {
       list = intersection(list, this.torrentGroupBySite[this.filter.site]);
+    }
+    if (this.filter.site !== null) {
+      list = intersection(list, this.torrentGroupByGroupName[this.filter.groupName]);
     }
     if (this.filter.category !== null) {
       list = intersection(list, this.torrentGroupByCategory[this.filter.category]);
