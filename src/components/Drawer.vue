@@ -146,7 +146,7 @@ interface MenuChildrenItem extends MenuItem {
       'torrentGroupByTag',
       'torrentGroupBySite',
       'torrentGroupByState',
-      'torrentGroupByGroupName',
+      'torrentGroupByGroupSite',
     ]),
   },
 })
@@ -172,7 +172,7 @@ export default class Drawer extends Vue {
   torrentGroupByCategory!: {[category: string]: Torrent[]}
   torrentGroupByTag!: {[tag: string]: Torrent[]}
   torrentGroupBySite!: {[site: string]: Torrent[]}
-  torrentGroupByGroupName!: {[groupName: string]: Torrent[]}
+  torrentGroupByGroupSite!: {[groupName: string]: Torrent[]}
   torrentGroupByState!: {[state: string]: Torrent[]}
 
   created() {
@@ -251,7 +251,7 @@ export default class Drawer extends Vue {
   }
 
   buildGroupNameGroup(): MenuChildrenItem[] {
-    return sortBy(Object.entries(this.torrentGroupByGroupName).map(([key, value]) => {
+    return sortBy(Object.entries(this.torrentGroupByGroupSite).map(([key, value]) => {
       const size = formatSize(sumBy(value, 'size'));
       const title = `${key || tr('others')} (${value.length})`;
       const icon = defaultTo(key != "" ? getSiteIcon(key) : null, 'mdi-server');
@@ -325,21 +325,21 @@ export default class Drawer extends Vue {
         ...this.buildSiteGroup(),
       ],
     });
-    let groupNameLength = 0;
+    let groupSiteLength = 0;
     let groupTotalSize = 0;
-    for (const groupName in this.torrentGroupByGroupName) {
-      groupNameLength += this.torrentGroupByGroupName[groupName].length;
-      groupTotalSize += sumBy(this.torrentGroupByGroupName[groupName], 'size');
+    for (const groupName in this.torrentGroupByGroupSite) {
+      groupSiteLength += this.torrentGroupByGroupSite[groupName].length;
+      groupTotalSize += sumBy(this.torrentGroupByGroupSite[groupName], 'size');
     }
     filterGroups.push({
       icon: 'mdi-menu-up',
       'icon-alt': 'mdi-menu-down',
-      title: tr('groupName', 0),
+      title: tr('groupSite', 0),
       model: null,
-      select: 'groupName',
+      select: 'groupSite',
       children: [
         {
-          icon: 'mdi-server', title: `${tr('all')} (${groupNameLength})`, key: null, append: `[${formatSize(groupTotalSize)}]`,
+          icon: 'mdi-server', title: `${tr('all')} (${groupSiteLength})`, key: null, append: `[${formatSize(groupTotalSize)}]`,
         },
         ...this.buildGroupNameGroup(),
       ],

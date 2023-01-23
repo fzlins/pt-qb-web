@@ -159,7 +159,7 @@ const store = new Vuex.Store<RootState>({
         return torrent.site;
       });
     },
-    torrentGroupByGroupName(state, getters) {
+    torrentGroupByGroupSite(state, getters) {
       const groupByName = getters.allTorrents.reduce((result: any, currentObject: any) => {
         if (!result[currentObject.name] || result[currentObject.name].length < currentObject.length)
           result[currentObject.name] = Object.assign({}, currentObject)
