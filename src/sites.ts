@@ -106,8 +106,8 @@ export function getSiteNameByUrl(url: string): string {
   return "";
 }
 
-export function getSiteNameByGroupName(groupName: string): string {
-  groupName = groupName ? groupName.toLowerCase() : "";
+export function getGroupSiteByName(name: string): string {
+  const groupName = getGroupName(name).toLocaleLowerCase();
   if (groupName.includes("m-team"))
     return PTSite.MTeam;
   else if (groupName == "frds")

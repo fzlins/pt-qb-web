@@ -482,7 +482,7 @@ export default class Torrents extends Vue {
     if (this.filter.site !== null) {
       list = intersection(list, this.torrentGroupBySite[this.filter.site]);
     }
-    if (this.filter.site !== null) {
+    if (this.filter.groupName !== null) {
       list = intersection(list, this.torrentGroupByGroupName[this.filter.groupName]);
     }
     if (this.filter.category !== null) {

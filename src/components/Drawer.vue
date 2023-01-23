@@ -315,7 +315,7 @@ export default class Drawer extends Vue {
     filterGroups.push({
       icon: 'mdi-menu-up',
       'icon-alt': 'mdi-menu-down',
-      title: tr('sites'),
+      title: tr('sites', 0),
       model: null,
       select: 'site',
       children: [
@@ -334,7 +334,7 @@ export default class Drawer extends Vue {
     filterGroups.push({
       icon: 'mdi-menu-up',
       'icon-alt': 'mdi-menu-down',
-      title: tr('groupName'),
+      title: tr('groupName', 0),
       model: null,
       select: 'groupName',
       children: [

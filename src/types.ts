@@ -48,6 +48,8 @@ export interface Torrent extends BaseTorrent {
   hash: string;
   site: string;
   imdb: string;
+  groupName: string;
+  groupSite: string;
 }
 
 export interface Category {

@@ -50,6 +50,8 @@ const emptyBaseTorrent: BaseTorrent = {
 const emptyTorrent: Torrent = Object.assign({}, emptyBaseTorrent, {
   hash: '',
   site: '',
+  groupName: '',
+  groupSite: '',
   imdb: '',
 });
 
