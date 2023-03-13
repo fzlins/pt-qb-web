@@ -21,7 +21,8 @@ enum PTSite {
   AB = "AB",
   TL = "TL",
   OurBits = "OurBits",
-  BeyondHD = "BeyondHD"
+  BeyondHD = "BeyondHD",
+  MTV = "MTV",
 }
 
 export function getSiteIcon(name: string): string {
@@ -97,6 +98,8 @@ export function getSiteNameByUrl(url: string): string {
         return PTSite.TL;
       else if (hostname.includes("ourbits"))
         return PTSite.OurBits;
+      else if (hostname.includes("morethantv"))
+        return PTSite.MTV;
       return hostname;
     }
   } catch {
